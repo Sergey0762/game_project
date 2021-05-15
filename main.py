@@ -5,7 +5,6 @@ from random import randint
 
 
 
-
 res_x = 800
 res_y = 600
 rock_width = 50
@@ -42,23 +41,14 @@ usr_height = 66
 usr_speed = 0.5
 usr_sprite = pygame.image.load('spaceship.png')
 
+score =1
 
-score = 0
 adove_rock =False
 
 rect1 = pygame.Rect((usr_x, usr_y,usr_widht,usr_height))
 rect2 = pygame.Rect((rock_x, rock_y, rock_width, rock_height))
 
-def collide(rect1: pygame.Rect, rect2: pygame.Rect):
-    a = False
-    if (rect1[0] <= rect2[0] <= rect1[0] + rect1[2] or
-        rect1[0] <= rect2[0] + rect2[2] <= rect1[0] + rect1[2] or
-        (rect2[0] <= rect1[0] and rect2[0] + rect2[2] >= rect1[0] + rect1[2])) and \
-            (rect1[1] <= rect2[1] <= rect1[1] + rect1[3] or
-             rect1[1] <= rect2[1] + rect2[3] <= rect1[1] + rect1[3] or
-             (rect2[1] <= rect1[1] and rect2[1] + rect2[3] >= rect1[1] + rect1[3])):
-        a = True
-    return a
+
 
 
 
@@ -133,19 +123,35 @@ def game():
 
         draw_rock()
         display.blit(usr_sprite,(usr_x,usr_y))
-        # pygame.draw.rect(display, (0 ,0 ,255), (usr_x, usr_y, usr_widht, usr_height))
+        #pygame.draw.rect(display, (0 ,0 ,255), (usr_x, usr_y, usr_widht, usr_height))
+        #pygame.draw.rect(display, (0, 0, 255), (rock_x, rock_y, rock_width, rock_height))
+        #pygame.draw.rect(display, (0, 0, 255), (rock_x2, rock_y2, rock_width2, rock_height2))
+        #pygame.draw.rect(display, (0, 0, 255), (rock_x3, rock_y3, rock_width3, rock_height3))
 
-        # print_text('Score: ' + str(score), 10, 10)
+        #print_text('Score: ' + str(score), 10, 10)
         pygame.display.update()
     return game_over()
     # clock.tick(1000)
+
+
+
 
 pygame.init()
 surface = pygame.display.set_mode((res_x, res_y))
 
 
-def Scores():
-    global score, adove_rock
+def collide(rect1: pygame.Rect, rect2: pygame.Rect):
+    a = False
+    if (rect1[0] <= rect2[0] <= rect1[0] + rect1[2] or
+        rect1[0] <= rect2[0] + rect2[2] <= rect1[0] + rect1[2] or
+        (rect2[0] <= rect1[0] and rect2[0] + rect2[2] >= rect1[0] + rect1[2])) and \
+            (rect1[1] <= rect2[1] <= rect1[1] + rect1[3] or
+             rect1[1] <= rect2[1] + rect2[3] <= rect1[1] + rect1[3] or
+             (rect2[1] <= rect1[1] and rect2[1] + rect2[3] >= rect1[1] + rect1[3])):
+        a = True
+    return a
+
+
 
 def game_over():
     stopped = True
@@ -154,11 +160,11 @@ def game_over():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-        #print_text('GAME OVER', 160, 300)
+        print_text('GAME OVER', 160, 300)
         keys = pygame.key.get_pressed()
-        if keys(pygame.K_RETURN):
+        if keys(pygame.K_2):
             return True
-        if keys[pygame.K_ESCAPE]:
+        if keys[pygame.K_RETURN]:
             return False
         pygame.display.update()
 
@@ -166,10 +172,10 @@ def game_over():
 def set_difficulty(value, difficulty):
     # Do the job here !
     pass
-# def print_text(message, x, y, font_color = (0, 0, 0), font_type = 'Pig.ttf', font_size = 70 ):
-#     font_type = pygame.font.Font(font_type, font_size)
-#     text = font_type.render(message, True, font_color)
-#     display.blit(text, (x, y))
+def print_text(message, x, y, font_color = (200, 200, 200), font_type = 'Pig.ttf', font_size = 70 ):
+    font_type = pygame.font.Font(font_type, font_size)
+    text = font_type.render(message, True, font_color)
+    display.blit(text, (x, y))
 
 
 def start_the_game():
@@ -201,7 +207,7 @@ def pause():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-        print_text('PAUSED. Press 1 to contine', 150, 250)
+        print_text('PAUSED.Press 1 to contine', 150, 250)
 
 
 
